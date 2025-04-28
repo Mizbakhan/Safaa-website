@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="script.js">
+
+    </script> 
+   
+</head>
+</html>
+<!-- Header Section -->
+<header>
+    <div class="brand">Safaa</div>
+    
+    <nav>
+      <ul>
+       
+        <li><a href="index.html"><i class="fa-solid fa-house"></i></a></li>
+        <li>
+          <a href="wishlist.html" class="wishlist" onclick="openWishlist()">
+            <i class="fa-solid fa-heart"></i>
+            <span id="wishlist-count" class="count-badge">0</span>
+          </a>
+        </li>
+        <li>
+          <a href="cart.html" class="cart" onclick="openCart()">
+            <i class="fa-solid fa-cart-shopping"></i>
+            <span id="cart-count" class="count-badge">0</span>
+          </a>
+        </li>
+        
+        <style>
+          .count-badge {
+                        background-color: crimson;
+                        color: white;
+                        font-size: 12px;
+                        padding: 2px 6px;
+                        border-radius: 50%;
+                        position: absolute;
+                        top: -6px;
+                        right: -8px;
+                      }
+                      .wishlist, .cart {
+                        position: relative;
+                      }
+          </style>
+                      
+        <li>
+            <a href="profile.html" class="profile" onclick="openProfile()">
+                <div class="profile"><i class="fa-solid fa-user"></i>
+                </div>
+            </a>
+        </li>
+
+      </ul>
+    </nav>
+  </header>
+
+  <title> Checkout - Safaa</title>
+   
+  <style>
+    header {
+  background-color: #be9c9c; /* dark gray background */
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.brand {
+  font-size: 25px;
+  font-weight: bold;
+  color: #fff;
+  margin-left:40px;
+ 
+}
+
+nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+nav li {
+  margin-right: 20px;
+}
+
+nav a {
+  color: #fff;
+  text-decoration: none;
+}
+
+nav a.active {
+  color: #ccc; /* light gray text for active link */
+}
+
+nav a:hover {
+  color: black; /* dark gray text on hover */
+}
+
+    
+    h2 { text-align: center; }
+    .summary, .billing-form {
+      background: #fff;
+      padding: 20px;
+      margin-top: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .summary p {
+      display: flex;
+      justify-content: space-between;
+      margin: 8px 0;
+    }
+    .billing-form input, .billing-form textarea {
+      width: 100%;
+      margin-bottom: 12px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+
+    .payment-section {
+  margin-top: 30px;
+  padding: 20px;
+  border-radius: 12px;
+  background-color: #fdfdfd;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+}
+
+.payment-section h3 {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.payment-options {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.payment-card {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  border: 2px solid #e0e0e0;
+  border-radius: 10px;
+  padding: 12px 16px;
+  transition: all 0.3s ease;
+  background: #fff;
+}
+
+.payment-card input[type="radio"] {
+  display: none;
+}
+
+.payment-card .method {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #444;
+}
+
+.payment-card .method i {
+  font-size: 1.4rem;
+  color: #888;
+}
+
+.payment-card:hover {
+  border-color: #007bff;
+  background-color: #f0f8ff;
+}
+
+.payment-card input[type="radio"]:checked + .method {
+  color: #007bff;
+  font-weight: 600;
+}
+
+.payment-card input[type="radio"]:checked + .method i {
+  color: #007bff;
+}
+
+
+    .checkout-btn {
+        background-color: #0c0d0c;
+        color: #fff;
+      border: none;
+      padding: 12px 20px;
+      font-size: 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      width: 100%;
+      margin-top: 15px;
+    }
+    .checkout-btn:hover {
+      background-color: #4CAF50;
+    }
+
+</style>
+  
+<body>
+    <h2>Checkout</h2>
+  
+    <!-- Order Summary -->
+    <div class="summary">
+      <h3>Order Summary</h3>
+      <p><span>Subtotal:</span> <span id="subtotal">₹0.00</span></p>
+      <p><span>Discount:</span> <span id="discount">-₹0.00</span></p>
+      <p><span>GST (18%):</span> <span id="gst">₹0.00</span></p>
+      <p><span>Delivery:</span> <span id="delivery">₹0.00</span></p>
+      <hr>
+      <p style="font-weight: bold;"><span>Total:</span> <span id="total">₹0.00</span></p>
+    </div>
+  
+    <!-- Billing / Shipping Form -->
+    <div class="billing-form">
+      <h3>Billing Details</h3>
+      <input type="text" placeholder="Full Name" id="name" required />
+      <input type="email" placeholder="Email Address" id="email" required />
+      <input type="text" placeholder="Phone Number" id="phone" required />
+      <textarea placeholder="Shipping Address" id="address" rows="4" required></textarea>
+      <!-- Payment Options -->
+      <div class="payment-section">
+        <h3>Choose Payment Method</h3>
+        <div class="payment-options">
+          <label class="payment-card">
+            <input type="radio" name="payment" value="card" checked />
+            <div class="method">
+              <i class="fas fa-credit-card"></i>
+              <span>Credit / Debit Card</span>
+            </div>
+          </label>
+      
+          <label class="payment-card">
+            <input type="radio" name="payment" value="upi" />
+            <div class="method">
+              <i class="fas fa-mobile-alt"></i>
+              <span>UPI</span>
+            </div>
+          </label>
+      
+          <label class="payment-card">
+            <input type="radio" name="payment" value="cod" />
+            <div class="method">
+              <i class="fas fa-money-bill-wave"></i>
+              <span>Cash on Delivery</span>
+            </div>
+          </label>
+        </div>
+      </div>
+      
+  
+  <button class="checkout-btn" onclick="placeOrder()">Place Order</button>
+  
+    </div>
+  
+    <script>
+        const summary = JSON.parse(localStorage.getItem("checkoutSummary")) || {
+          subtotal: 0,
+          discount: 0,
+          gst: 0,
+          delivery: 0,
+          total: 0
+        };
+      
+        // Populate summary in HTML
+        document.getElementById("subtotal").textContent = `₹${summary.subtotal}`;
+        document.getElementById("discount").textContent = `-₹${summary.discount}`;
+        document.getElementById("gst").textContent = `₹${summary.gst}`;
+        document.getElementById("delivery").textContent = `₹${summary.delivery}`;
+        document.getElementById("total").textContent = `₹${summary.total}`;
+      
+        function placeOrder() {
+  const name = document.getElementById("name").value.trim();
+  const email = document.getElementById("email").value.trim();
+  const phone = document.getElementById("phone").value.trim();
+  const address = document.getElementById("address").value.trim();
+  const paymentMethod = document.querySelector('input[name="payment"]:checked')?.value;
+
+  if (!name || !email || !phone || !address) {
+    alert("Please fill in all billing details.");
+    return;
+  }
+
+  if (!paymentMethod) {
+    alert("Please select a payment method.");
+    return;
+  }
+
+  // Optional: Simulate payment for card or UPI
+  if (paymentMethod !== "cod") {
+    const confirmed = confirm(`You selected ${paymentMethod.toUpperCase()} as your payment method. Proceed with payment?`);
+    if (!confirmed) return;
+  }
+
+  const orderDetails = {
+    name,
+    email,
+    phone,
+    address,
+    paymentMethod,
+    subtotal: parseFloat(summary.subtotal),
+    discount: parseFloat(summary.discount),
+    gst: parseFloat(summary.gst),
+    delivery: parseFloat(summary.delivery),
+    total: parseFloat(summary.total),
+    timestamp: new Date().toISOString()
+  };
+
+
+  localStorage.setItem("orderDetails", JSON.stringify(orderDetails));
+  localStorage.removeItem("cart");
+
+  // Redirect to thank you page
+  window.location.href = "thankyou.html";
+}
+
+      </script>
+      
+  </body>

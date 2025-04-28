@@ -1,0 +1,244 @@
+
+<!-- abayas.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="script.js"></script>
+   
+</head>
+</html>
+<!-- Header Section -->
+<header>
+    <div class="brand">Safaa</div>
+    
+    <nav>
+      <ul>
+        <li><a href="index.html"><i class="fa-solid fa-house"></i></a></li>
+        <li>
+          <a href="wishlist.html" class="wishlist" onclick="openWishlist()">
+            <i class="fa-solid fa-heart"></i>
+            <span id="wishlist-count" class="count-badge">0</span>
+          </a>
+        </li>
+        <li>
+          <a href="cart.html" class="cart" onclick="openCart()">
+            <i class="fa-solid fa-cart-shopping"></i>
+            <span id="cart-count" class="count-badge">0</span>
+          </a>
+        </li>
+        
+        <style>
+          .count-badge {
+                        background-color: crimson;
+                        color: white;
+                        font-size: 12px;
+                        padding: 2px 6px;
+                        border-radius: 50%;
+                        position: absolute;
+                        top: -6px;
+                        right: -8px;
+                      }
+                      .wishlist, .cart {
+                        position: relative;
+                      }
+          </style>
+                      
+        <li>
+            <a href="profile.html" class="profile" onclick="openProfile()">
+                <div class="profile"><i class="fa-solid fa-user"></i>
+                </div>
+            </a>
+        </li>
+
+      </ul>
+    </nav>
+  </header>
+  <style>
+    body {
+      font-family: "Segoe UI", sans-serif;
+      background-color: #f5f5f5;
+      margin: 0;
+      padding: 30px;
+    }
+
+    .wishlist-wrapper {
+      max-width: 1000px;
+      margin: auto;
+      background: #fff;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 28px;
+    }
+
+    .wishlist-item {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      border-bottom: 1px solid #ddd;
+      padding: 20px 0;
+    }
+
+    .wishlist-item img {
+      width: 100px;
+      border-radius: 8px;
+    }
+
+    .wishlist-item-details {
+      flex: 1;
+    }
+
+    .wishlist-item-details p {
+      margin: 5px 0;
+    }
+
+    .wishlist-item button {
+      padding: 8px 12px;
+      margin-right: 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .wishlist-item a button {
+      background-color: #007bff;
+      color: white;
+    }
+
+    .wishlist-item .remove-btn {
+      background-color: #dc3545;
+      color: white;
+    }
+
+    .wishlist-item .remove-btn:hover {
+      background-color: #b3002d;
+    }
+
+    .empty-message {
+      text-align: center;
+      color: #888;
+      font-style: italic;
+      margin-top: 40px;
+    }
+  </style>
+  <body>
+     <div class="wishlist-wrapper">
+      <h2>Your Wishlist</h2>
+      <div id="wishlist-items"></div>
+    </div>
+  
+    <script>
+      const wishlistContainer = document.getElementById("wishlist-items");
+      const wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+  
+      if (wishlist.length === 0) {
+        wishlistContainer.innerHTML = "<p>Your wishlist is empty.</p>";
+      } else {
+        wishlist.forEach((item, index) => {
+          const div = document.createElement("div");
+          div.classList.add("wishlist-item");
+          div.innerHTML = `
+            <img src="${item.image}" width="100" />
+            <p><strong>${item.name}</strong></p>
+            <p>Price: $${item.price.toFixed(2)}</p>
+            <a href="product.html?productId=${item.id}"><button>View</button></a>
+            <button onclick="removeFromWishlist(${index})">Remove</button>
+            <hr>
+          `;
+          wishlistContainer.appendChild(div);
+        });
+      }
+  
+      function removeFromWishlist(index) {
+        wishlist.splice(index, 1);
+        localStorage.setItem("wishlist", JSON.stringify(wishlist));
+        location.reload();
+      }
+    </script>
+  </body>
+  
+
+
+
+  <style>
+    header {
+     background-color: #be9c9c; /* dark gray background */
+     padding: 10px;
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+     margin-bottom: 10px;
+   }
+   
+   .brand {
+     font-size: 25px;
+     font-weight: bold;
+     color: #fff;
+     margin-left:40px;
+    
+   }
+   
+   nav ul {
+     list-style: none;
+     margin: 0;
+     padding: 0;
+     display: flex;
+   }
+   
+   nav li {
+     margin-right: 20px;
+   }
+   
+   nav a {
+     color: #fff;
+     text-decoration: none;
+   }
+   
+   nav a.active {
+     color: #ccc; /* light gray text for active link */
+   }
+   
+   nav a:hover {
+     color: black; /* dark gray text on hover */
+   }
+
+   </style>
+<!---
+<!-- wishlist.htm 
+<h1>My Wishlist</h1>
+<ul id="wishlist-list">
+  <!-- Wishlist items will be displayed here -->
+</ul>
+
+<!-- script.js 
+ <script>
+
+// Add item to wishlist
+function openWishlist(productId, productName, productImage) {
+  const wishlistItems = JSON.parse(localStorage.getItem('wishlist')) || [];
+  wishlistItems.push({ id: productId, name: productName, image: productImage });
+  localStorage.setItem('wishlist', JSON.stringify(wishlistItems));
+}
+
+// Display wishlist items
+function displayWishlist() {
+  const wishlistItems = JSON.parse(localStorage.getItem('wishlist')) || [];
+  const wishlistList = document.getElementById('wishlist-list');
+
+  wishlistItems.forEach(item => {
+    const listItem = document.createElement('li');
+    listItem.innerHTML = `<img src="${item.image}" alt="${item.name}"> <h2>${item.name}</h2>`;
+    wishlistList.appendChild(listItem);
+  });
+}
+</script>
+-->

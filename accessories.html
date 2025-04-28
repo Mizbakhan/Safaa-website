@@ -1,0 +1,397 @@
+<!-- abayas.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="script.js"></script>
+
+   
+</head>
+</html>
+<!-- Header Section -->
+<header>
+    <div class="brand">Safaa</div>
+    
+    <nav>
+      <ul>
+       
+        <li><a href="index.html"><i class="fa-solid fa-house"></i></a></li>
+        <li>
+            <a href="wishlist.html" class="wishlist" onclick="openWishlist()">
+                <div class="wishlist">
+                    <i class="fa-solid fa-heart">Wishlist</i>
+                    <span id="wishlist-count" class="count-badge">0</span>
+                </div>
+            </a>
+        </li>
+        <li>
+            <a href="cart.html" class="cart" onclick="openCart()">
+                <div class="cart"><i class="fa-solid fa-cart-shopping"></i>
+                  <span id="cart-count" class="count-badge">0</span>
+                </div>
+            </a>
+        </li>
+        <style>
+          .count-badge {
+                        background-color: crimson;
+                        color: white;
+                        font-size: 12px;
+                        padding: 2px 6px;
+                        border-radius: 50%;
+                        position: absolute;
+                        top: -6px;
+                        right: -8px;
+                      }
+                      .wishlist, .cart {
+                        position: relative;
+                      }
+          </style>
+                      
+        <li>
+            <a href="profile.html" class="profile" onclick="openProfile()">
+                <div class="profile"><i class="fa-solid fa-user"></i>
+                </div>
+            </a>
+        </li>
+
+      </ul>
+    </nav>
+  </header>
+  
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4">
+          <img src="acc-hero.jpg" alt="" class="img-fluid">
+        </div>
+        <div class="col-md-8">
+            <h1>Hijab Accesories</h1>
+            <p>Explore our collection of stylish and modest Hijab Accesories</p>
+          
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <body>
+    <section class="abayas">
+      <h2>Elegant Jilbaabs</h2>
+      <div class="abaya-grid" id="accessories-grid">
+        <!-- Jilbab products will be inserted here dynamically -->
+      </div>
+      <button class="load-more" id="loadMoreBtn">Load More</button>
+    </section>
+  
+    <script src="products.js"></script>
+    <script>
+      const accGrid = document.getElementById("accessories-grid");
+      const accessories = products.filter(p => p.category === "accessories");
+      
+    let currentCount = 0;
+    const perPage = 5;
+
+    function loadAccessories() {
+      const nextItems = accessories.slice(currentCount, currentCount + perPage);
+      nextItems.forEach(product => {
+        const div = document.createElement("div");
+        div.classList.add("abaya");
+        div.innerHTML = `
+          <img src="${product.image}" alt="${product.name}">
+          <h3>${product.name}</h3>
+          <p>$${product.price.toFixed(2)}</p>
+          <a href="product.html?productId=${product.id}">
+            <button class="cta">Buy Now</button>
+          </a>
+        `;
+        accGrid.appendChild(div);
+      });
+      currentCount += perPage;
+      if (currentCount >= accessories.length) {
+        document.getElementById("loadMoreBtn").style.display = "none";
+      }
+    }
+  
+    document.getElementById("loadMoreBtn").addEventListener("click", loadAccessories);
+  
+    // Initial load
+    loadAccessories();
+    </script>
+  </body>
+
+  <!-- 
+  // accesories Section //
+  <section class="abayas">
+    <h2>Featured Hijab Accesories</h2>
+    <div class="abaya-grid">
+      //Abaya 1 //
+      <div class="abaya">
+        <img src="acc1.jpeg" alt="Abaya 1">
+        <h3>Hijab Accesories 1</h3>
+        <p>$50.00</p>
+        <a href="product.html?productName=acc1" ><button class="cta" >Buy Now</button></a>
+      </div>
+      // Abaya 2 //
+      <div class="abaya">
+        <img src="acc2.jpeg" alt="Abaya 2">
+        <h3>Hijab Accesories 2</h3>
+        <p>$60.00</p>
+        <a href="product.html?productName=acc2" ><button class="cta" >Buy Now</button></a>
+      </div>
+      // Abaya 3 //
+      <div class="abaya">
+        <img src="acc3.jpeg" alt="Abaya 3">
+        <h3>Hijab Accesories 3</h3>
+        <p>$70.00</p> 
+        <a href="product.html?productName=acc3" ><button class="cta" >Buy Now</button></a>
+      </div>
+      //Abaya 4 
+      <div class="abaya">
+        <img src="acc4.jpeg" alt="Abaya 4">
+        <h3>Hijab Accesories 4</h3>
+        <p>$80.00</p>
+        <a href="product.html?productName=acc4" ><button class="cta" >Buy Now</button></a>
+      </div>
+
+      <div class="abaya">
+        <img src="acc5.jpg" alt="Abaya 4">
+        <h3>Hijab Accesories 5</h3>
+        <p>$80.00</p>
+        <a href="product.html?productName=acc5" ><button class="cta" >Buy Now</button></a>
+      </div>
+      <div class="abaya">
+        <img src="acc6.jpeg" alt="Abaya 4">
+        <h3>Hijab Accesories 6</h3>
+        <p>$80.00</p>
+        <a href="product.html?productName=acc6" ><button class="cta" >Buy Now</button></a>
+      </div>
+
+      <div class="abaya">
+        <img src="acc7.jpeg" alt="Abaya 4">
+        <h3>Hijab Accesories 7</h3>
+        <p>$80.00</p>
+        <a href="product.html?productName=acc7" ><button class="cta" >Buy Now</button></a>
+      </div>
+
+      <div class="abaya">
+        <img src="acc8.jpg" alt="Abaya 4">
+        <h3>Hijab Accesories 8</h3>
+        <p>$80.00</p>
+        <a href="product.html?productName=acc8" ><button class="cta" >Buy Now</button></a>
+      </div>
+
+    </div>
+  
+    <button class="load-more">Load More</button>
+  </section>
+-->
+  <!-- Footer Section -->
+  <footer>
+    <p>&copy; 2025 Safaa. All rights reserved. Developed by Mizba Khan. <i class="fa-regular fa-heart"></i></p>
+  </footer>
+  
+  <!-- CSS Styles -->
+   
+  <style>
+    header {
+  background-color: #be9c9c; /* dark gray background */
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.brand {
+  font-size: 25px;
+  font-weight: bold;
+  color: #fff;
+  margin-left:40px;
+ 
+}
+
+nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+nav li {
+  margin-right: 20px;
+}
+
+nav a {
+  color: #fff;
+  text-decoration: none;
+}
+
+nav a.active {
+  color: #ccc; /* light gray text for active link */
+}
+
+nav a:hover {
+  color: #aaa; /* dark gray text on hover */
+}
+
+
+.hero {
+  background-color: #f7f7f7; /* light gray background */
+  padding: 20px ;
+  padding-left: 0%;
+}
+
+.hero .container {
+  max-width: 1200px; /* adjust the max width to your liking */
+  margin: 0 auto;
+}
+
+.hero .row {
+  display: flex;
+  align-items: center;
+}
+
+.hero .col-md-4 {
+  padding: 10px;
+}
+
+.hero img {
+  width: 100%;
+  height: 500px; /* adjust the height to your liking */
+  object-fit: cover;
+  border-radius: 10px;
+
+  animation: fade-in 2s ease-in-out;
+}
+
+.hero .col-md-8 {
+  padding: 20px;
+  animation: fade-in 2s ease-in-out;
+}
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.hero h1 {
+  font-size: 50px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #9a845d;
+}
+
+.hero p {
+  font-size: 20px;
+  color: #666; /* dark gray text */
+}
+
+
+.cta {
+    background-color: #4CAF50;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+ 
+}
+
+.cta:hover {
+    background-color: #3e8e41;
+}
+
+
+.abaya-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+}
+
+.abaya {
+  background-color: #fff;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+}
+
+.abaya img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 10px 10px 0 0;
+  transform: scale(0.8);
+}
+     
+.abayas{
+box-shadow: 20px 20px 30px rgba(0,0,0,0.02);
+
+}
+
+.abayas .abaya:hover{
+  box-shadow: 20px 20px 30px rgba(176, 128, 128, 0.8);
+  transition: .5s ease;
+    transform: translateY(-2rem);
+}
+    
+.abayas h2{
+  font-size: 40px;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  color:#9a845d ;
+  font-weight: bold;
+  animation: fade-in 2s ease-in-out;
+  margin-left: 10%;
+}  
+    .abaya h3 {
+      font-size: 18px;
+      margin-top: 10px;
+    }
+    
+    .abaya p {
+      font-size: 16px;
+      color: #666;
+    }
+    
+    .abaya button {
+      background-color: #333;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    
+    .load-more {
+      background-color: #333;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      margin: 20px auto;
+      display: flex;
+  justify-content: center;
+  width: 10%;
+  text-align: center;
+    }
+    .load-more:hover {
+    background-color: #3e8e41;
+}
+    
+    footer {
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+}
+  </style>
+ 
+
+ 
+<!-- Abayas Section -->

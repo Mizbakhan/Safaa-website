@@ -1,0 +1,486 @@
+
+<!-- abayas.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="script.js"></script>
+   
+</head>
+</html>
+<!-- Header Section -->
+<header>
+    <div class="brand">Safaa</div>
+    
+    <nav>
+      <ul>
+       
+        <li><a href="index.html"><i class="fa-solid fa-house"></i></a></li>
+        <li>
+            <a href="wishlist.html" class="wishlist" onclick="openWishlist()">
+                <div class="wishlist">
+                    <i class="fa-solid fa-heart"></i>
+                    <span id="wishlist-count" class="count-badge">0</span>
+                </div>
+            </a>
+        </li>
+        <li>
+            <a href="cart.html" class="cart" onclick="openCart()">
+                <div class="cart"><i class="fa-solid fa-cart-shopping"></i>
+                    <span id="cart-count" class="count-badge">0</span>
+                </div>
+            </a>
+        </li>
+        <style>
+            .count-badge {
+                          background-color: crimson;
+                          color: white;
+                          font-size: 12px;
+                          padding: 2px 6px;
+                          border-radius: 50%;
+                          position: absolute;
+                          top: -6px;
+                          right: -8px;
+                        }
+                        .wishlist, .cart {
+                          position: relative;
+                        }
+            </style>
+                        
+        <li>
+            <a href="profile.html" class="profile" onclick="openProfile()">
+                <div class="profile"><i class="fa-solid fa-user"></i>
+                </div>
+            </a>
+        </li>
+
+      </ul>
+    </nav>
+  </header>
+  <div class="cart-wrapper">
+    <h2>Your Cart</h2>
+    <div class="cart-content">
+      <div id="cart-items" class="cart-items"></div>
+  
+      <div class="cart-summary">
+        <h3>Order Summary</h3>
+        <p id="item-count">Items: 0</p>
+        <p id="subtotal">Subtotal: ₹0.00</p>
+        <p id="discount-line" style="display:none; color: green;">Discount: -₹0.00</p>
+        <p id="gst-line">GST (18%): ₹0.00</p>
+        <p id="delivery-line">Delivery Charges: ₹0.00</p>
+        <hr>
+        <p id="total-price" style="font-weight:bold; font-size: 1.2rem;">Total: ₹0.00</p>
+      
+        <div class="coupon-section">
+          <input type="text" placeholder="Enter Coupon Code" id="coupon-input">
+          <button onclick="applyCoupon()">Apply</button>
+        </div>
+      
+        <button class="checkout-btn">Proceed to Checkout</button>
+      </div>
+      
+    </div>
+  </div>
+  </head>
+
+  <style>
+      body {
+        font-family: "Segoe UI", sans-serif;
+        background-color: #ffffff;
+        margin: 0;
+        padding: 20px;
+      }
+  
+      h2 {
+        text-align: center;
+        margin-bottom: 30px;
+      }
+      .cart-container {
+        max-width: 800px;
+        margin: auto;
+        background: rgb(255, 255, 255);
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+      }
+  
+      .cart-item {
+        display: flex;
+        align-items: center;
+        border-bottom: 1px solid #ddd;
+        padding: 15px 0;
+        gap: 20px;
+      }
+      .cart-wrapper {
+  max-width: 1000px;
+  margin: 40px auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.cart-content {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.cart-items {
+  flex: 2;
+}
+
+.cart-item {
+  display: flex;
+  gap: 20px;
+  border-bottom: 1px solid #ddd;
+  padding: 15px 0;
+  align-items: center;
+}
+
+.cart-item img {
+  width: 100px;
+  border-radius: 8px;
+}
+
+.cart-item p {
+  margin: 5px 0;
+}
+
+.cart-summary {
+  flex: 1;
+  border: 1px solid #ccc;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: #fff6fb;
+}
+
+.cart-summary h3 {
+  margin-bottom: 15px;
+}
+
+.coupon-section {
+  margin: 15px 0;
+}
+
+.coupon-section input {
+  padding: 5px;
+  width: 70%;
+}
+
+.coupon-section button {
+  padding: 6px 10px;
+  margin-left: 5px;
+  background-color: #333;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+.checkout-btn {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  width: 100%;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.checkout-btn:hover {
+  background-color: #218838;
+}
+
+  
+     
+  
+      .cart-item img {
+        width: 100px;
+        height: auto;
+        border-radius: 8px;
+      }
+  
+      .cart-details {
+        flex: 1;
+      }
+  
+      .cart-details p {
+        margin: 5px 0;
+      }
+  
+      .remove-btn {
+        background-color: #cb70be;
+        border: none;
+        color: white;
+        padding: 8px 14px;
+        border-radius: 6px;
+        cursor: pointer;
+        transition:0.3s;
+      }
+  
+      .remove-btn:hover {
+        background-color: #e60000;
+      }
+  
+      #total-price {
+        text-align: right;
+        font-size: 1.2rem;
+        font-weight: bold;
+        margin-top: 20px;
+      }
+  
+      .empty-message {
+        text-align: center;
+        color: #888;
+        font-style: italic;
+      }
+    </style>
+
+
+<script>
+    const cartContainer = document.getElementById("cart-items");
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    let subtotal = 0;
+    let discountAmount = 0;
+    let discountApplied = false;
+  
+    const coupons = {
+      "safaa10": 10,
+      "mizba0306": 15,
+      "eid20": 20,
+      "feesabilillah100": 50
+    };
+  
+    if (cart.length === 0) {
+      cartContainer.innerHTML = "<p>Your cart is empty.</p>";
+    } else {
+      cart.forEach((item, index) => {
+        const div = document.createElement("div");
+        div.classList.add("cart-item");
+        div.innerHTML = `
+          <img src="${item.image}" alt="${item.name}">
+          <div>
+            <p><strong>${item.name}</strong></p>
+            <p>Price: ₹${item.price.toFixed(2)}</p>
+            <p>Quantity: ${item.quantity}</p>
+            ${item.size ? `<p>Size: ${item.size}</p>` : ""}
+            ${item.color ? `<p>Color: ${item.color}</p>` : ""}
+            <button onclick="removeFromCart(${index})">Remove</button>
+          </div>
+        `;
+        cartContainer.appendChild(div);
+        subtotal += item.price * item.quantity;
+      });
+  
+      updateSummary();
+    }
+  
+    function updateSummary() {
+  document.getElementById("item-count").textContent = `Items: ${cart.length}`;
+  document.getElementById("subtotal").textContent = `Subtotal: ₹${subtotal.toFixed(2)}`;
+
+  const discountedSubtotal = subtotal - discountAmount;
+  const gst = discountedSubtotal * 0.18;
+  const delivery = discountedSubtotal < 999 ? 50 : 0;
+  const total = discountedSubtotal + gst + delivery;
+
+  // ✅ Define discountLine outside the if block
+  const discountLine = document.getElementById("discount-line");
+
+  if (discountAmount > 0) {
+    discountLine.style.display = "block";
+    discountLine.textContent = `Discount: -₹${discountAmount.toFixed(2)}`;
+  } else {
+    discountLine.style.display = "none";
+  }
+
+  document.getElementById("gst-line").textContent = `GST (18%): ₹${gst.toFixed(2)}`;
+  document.getElementById("delivery-line").textContent = `Delivery Charges: ₹${delivery.toFixed(2)}`;
+  document.getElementById("total-price").textContent = `Total: ₹${total.toFixed(2)}`;
+
+  // ✅ Save total and breakdown to localStorage for checkout page
+  localStorage.setItem("finalTotal", total.toFixed(2));
+  localStorage.setItem("checkoutSummary", JSON.stringify({
+    subtotal: subtotal.toFixed(2),
+    discount: discountAmount.toFixed(2),
+    gst: gst.toFixed(2),
+    delivery: delivery.toFixed(2),
+    total: total.toFixed(2)
+  }));
+}
+  
+  
+  
+    function applyCoupon() {
+      const input = document.getElementById("coupon-input").value.trim().toLowerCase();
+  
+      if (discountApplied) {
+        alert("Coupon already applied!");
+        return;
+      }
+  
+      if (coupons[input]) {
+        const percent = coupons[input];
+        discountAmount = subtotal * (percent / 100);
+        discountApplied = true;
+        updateSummary();
+        alert(`Coupon Applied: ${percent}% off`);
+      } else {
+        alert("Invalid Coupon");
+      }
+    }
+  
+    function removeFromCart(index) {
+      cart.splice(index, 1);
+      localStorage.setItem("cart", JSON.stringify(cart));
+      location.reload();
+    }
+  
+    document.querySelector(".checkout-btn").addEventListener("click", () => {
+      if (cart.length === 0) {
+        alert("Your cart is empty. Add items before checking out.");
+      } else {
+        window.location.href = "checkout.html";
+      }
+    });
+  </script>
+  
+  
+  
+      
+  </body>
+  </html>
+  
+  
+  <!-- 
+  <section id="cart" class="section-p1">
+    <table width="100%">
+        <thead>
+            <tr>
+                <td>Remove</td>
+                <td>Image</td>
+                <td>Product</td>
+                <td>Price</td>
+                <td>Quantity</td>
+                <td>Subtotal</td>
+                   
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><a href="#"><i class="far fa-times-circle"></i></a></td>
+                <td><img src="abaya1.jpg" alt=""></td>
+                <td>womens modesty fashion abaya</td>
+                <td>$139.00</td>
+                <td><input type="number" value="1"></td>
+                <td>$139.00</td>
+            </tr>
+            <tr>
+                <td><a href="#"><i class="far fa-times-circle"></i></a></td>
+                <td><img src="abaya2.jpg" alt=""></td>
+                <td>womens modesty fashion abaya</td>
+                <td>$139.00</td>
+                <td><input type="number" value="1"></td>
+                <td>$139.00</td>
+            </tr>
+            <tr>
+                <td><a href="#"><i class="far fa-times-circle"></i></a></td>
+                <td><img src="abaya3.jpg" alt=""></td>
+                <td>womens modesty fashion abaya</td>
+                <td>$139.00</td>
+                <td><input type="number" value="1"></td>
+                <td>$139.00</td>
+            </tr>
+        </tbody>
+    </table>
+  </section>
+  <section id="cart-add" class="section-p1">
+    <div class="coupon">
+        <h3>Apply Coupon</h3>
+        <div>
+            <input type="text" placeholder="Enter Your Coupon">
+            <button class="cta">Apply</button>
+        </div>
+    </div>
+    <div class="subtotal">
+        <h3>Cart Totals</h3>
+<table>
+    <tr>
+        <td>Cart Subtotal</td>
+        <td>$ 335</td>
+    </tr>
+    <tr>
+        <td>Shipping</td>
+        <td>Free</td>
+    </tr>
+    <tr>
+        <td><strong>Total</strong></td>
+        <td><strong>$ 417</strong></td>
+    </tr>
+</table>
+<button class="cta"> Proceed to checkout</button>
+    </div>
+  </section>
+-->
+   <!-- CSS Styles -->
+   
+   <style>
+ header {
+  background-color: #be9c9c; /* dark gray background */
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.brand {
+  font-size: 25px;
+  font-weight: bold;
+  color: #fff;
+  margin-left:40px;
+ 
+}
+
+nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+nav li {
+  margin-right: 20px;
+}
+
+nav a {
+  color: #fff;
+  text-decoration: none;
+}
+
+nav a.active {
+  color: #ccc; /* light gray text for active link */
+}
+
+nav a:hover {
+  color: black; /* dark gray text on hover */
+}
+.cta {
+    background-color: #4CAF50;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+ 
+}
+
+.cta:hover {
+    background-color: #3e8e41;
+}
+
+
+</style>

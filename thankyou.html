@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="script.js">
+
+    </script> 
+   
+</head>
+</html>
+<!-- Header Section -->
+<header>
+    <div class="brand">Safaa</div>
+    
+    <nav>
+      <ul>
+       
+        <li><a href="index.html"><i class="fa-solid fa-house"></i></a></li>
+        <li>
+          <a href="wishlist.html" class="wishlist" onclick="openWishlist()">
+            <i class="fa-solid fa-heart"></i>
+            <span id="wishlist-count" class="count-badge">0</span>
+          </a>
+        </li>
+        <li>
+          <a href="cart.html" class="cart" onclick="openCart()">
+            <i class="fa-solid fa-cart-shopping"></i>
+            <span id="cart-count" class="count-badge">0</span>
+          </a>
+        </li>
+        
+        <style>
+          .count-badge {
+                        background-color: crimson;
+                        color: white;
+                        font-size: 12px;
+                        padding: 2px 6px;
+                        border-radius: 50%;
+                        position: absolute;
+                        top: -6px;
+                        right: -8px;
+                      }
+                      .wishlist, .cart {
+                        position: relative;
+                      }
+          </style>
+                      
+        <li>
+            <a href="profile.html" class="profile" onclick="openProfile()">
+                <div class="profile"><i class="fa-solid fa-user"></i>
+                </div>
+            </a>
+        </li>
+
+      </ul>
+    </nav>
+  </header>
+
+  <title>Thank You - Safaa</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f8f8f8;
+      text-align: center;
+      margin: 0;
+      padding:  20px 20px;
+      color: #333;
+    }
+    .thankyou-box {
+      background: #fff;
+      padding: 30px 80px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      max-width: 500px;
+      margin: auto;
+    }
+    h2 {
+      color: #4caf50;
+    }
+    p {
+      margin: 10px 0;
+    }
+    .summary {
+      text-align: left;
+      margin-top: 20px;
+    }
+    .summary p {
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px dashed #ccc;
+      padding: 6px 0;
+    }
+    .btn-home {
+      margin-top: 30px;
+      padding: 10px 25px;
+      background-color: #444;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .btn-home:hover {
+      background-color: #43a047;
+    }
+
+
+    header {
+  background-color: #be9c9c; /* dark gray background */
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.brand {
+  font-size: 25px;
+  font-weight: bold;
+  color: #fff;
+  margin-left:40px;
+ 
+}
+
+nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+nav li {
+  margin-right: 20px;
+}
+
+nav a {
+  color: #fff;
+  text-decoration: none;
+}
+
+nav a.active {
+  color: #ccc; /* light gray text for active link */
+}
+
+nav a:hover {
+  color: black; /* dark gray text on hover */
+}
+
+
+    
+    h2 { text-align: center; }
+    .summary, .billing-form {
+      background: #fff;
+      padding: 20px;
+      margin-top: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .summary p {
+      display: flex;
+      justify-content: space-between;
+      margin: 8px 0;
+    }
+    .billing-form input, .billing-form textarea {
+      width: 100%;
+      margin-bottom: 12px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+    .checkout-btn {
+      background-color: #222;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      font-size: 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      width: 100%;
+      margin-top: 15px;
+    }
+    .checkout-btn:hover {
+      background-color: #4CAF50;
+    }
+
+</style>
+<body>
+    <div class="thankyou-box">
+      <h2>Thank You for Your Order!</h2>
+      <p>We’ve received your order and will begin processing it shortly.</p>
+  
+      <div class="summary" id="order-summary">
+        <!-- Order details will be populated here -->
+      </div>
+  
+      <a href="index.html" class="btn-home">Return to Home</a>
+    </div>
+  
+    <script>
+        const order = JSON.parse(localStorage.getItem("orderDetails"));
+      
+        if (order) {
+          const container = document.getElementById("order-summary");
+      
+          const formatPaymentMethod = (method) => {
+            switch (method) {
+              case "card": return "Credit / Debit Card";
+              case "upi": return "UPI";
+              case "cod": return "Cash on Delivery";
+              default: return "Not Specified";
+            }
+          };
+      
+          container.innerHTML = `
+            <h3>Order Summary</h3>
+            <p><strong>Name:</strong> ${order.name}</p>
+            <p><strong>Email:</strong> ${order.email}</p>
+            <p><strong>Phone:</strong> ${order.phone}</p>
+            <p><strong>Address:</strong> ${order.address}</p>
+            <p><strong>Payment Method:</strong> ${formatPaymentMethod(order.paymentMethod)}</p>
+            <hr>
+            <p><span>Subtotal:</span> <span>₹${order.subtotal.toFixed(2)}</span></p>
+            <p><span>Discount:</span> <span>-₹${order.discount.toFixed(2)}</span></p>
+            <p><span>GST (18%):</span> <span>₹${order.gst.toFixed(2)}</span></p>
+            <p><span>Delivery:</span> <span>₹${order.delivery.toFixed(2)}</span></p>
+            <p><strong><span>Total:</span> <span>₹${order.total.toFixed(2)}</span></strong></p>
+          `;
+      
+          // Optional: Clear orderDetails after displaying
+          localStorage.removeItem("orderDetails");
+          localStorage.removeItem("checkoutSummary");
+          localStorage.removeItem("finalTotal");
+        } else {
+          document.getElementById("order-summary").innerHTML = "<p>No order found.</p>";
+        }
+      </script>
+      
+  </body>

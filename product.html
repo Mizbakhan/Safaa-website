@@ -1,0 +1,756 @@
+
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  
+     
+  </head>
+  </html>
+  <!-- Header Section -->
+  <header>
+   
+      <div class="brand">Product Page</div>
+      
+      <nav>
+        <ul>
+         
+          <li><a href="index.html"><i class="fa-solid fa-house"></i></a></li>
+          <li>
+              <a href="wishlist.html" class="wishlist" onclick="openWishlist()">
+                  <div class="wishlist" style="position: relative;">
+                      <i class="fa-solid fa-heart"></i>
+                      <span id="wishlist-count" class="count-badge">0</span>
+                  </div>
+              </a>
+          </li>
+          <li>
+              <a href="cart.html" class="cart" onclick="openCart()">
+                  <div class="icon-cart" style="position: relative;">
+                    <i class="fa-solid fa-cart-shopping"></i>  
+                    <span id="cart-count" class="count-badge">0</span>
+                  </div>
+              </a>
+          </li>
+          <style>
+            .count-badge {
+                          background-color: crimson;
+                          color: white;
+                          font-size: 12px;
+                          padding: 2px 6px;
+                          border-radius: 50%;
+                          position: absolute;
+                          top: -6px;
+                          right: -8px;
+                        }
+                        .wishlist, .cart {
+                          position: relative;
+                        }
+            </style>
+                        
+          <li>
+              <a href="profile.html" class="profile" onclick="openProfile()">
+                  <div class="profile"><i class="fa-solid fa-user"></i>
+                  </div>
+              </a>
+          </li>
+  
+        </ul>
+      </nav>
+    </header>
+    <body>
+
+      <div id="product-info"></div>
+    
+      <script src="products.js"></script>
+      <script src="script.js" defer ></script>
+      <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const productId = urlParams.get("productId");
+      
+        const product = products.find(p => p.id === productId);
+      
+        if (product) {
+          const sizeOptions = product.sizes
+            ? `<select id="size-select">
+                <option>Select Size</option>
+                 <option disabled selected>Select Size</option>
+                ${product.sizes.map(size => `<option>${size}</option>`).join("")}
+               </select>`
+            : "";
+      
+          const colorOptions = product.colors
+            ? `<select id="color-select">
+                <option>Select Color</option>
+                 <option disabled selected>Select Color</option>
+                ${product.colors.map(color => `<option value="${color.toLowerCase()}">${color}</option>`).join("")}
+               </select>`
+            : "";
+      
+          document.getElementById("product-info").innerHTML = `
+            <section id="prodetails" class="section-p1">
+              <div class="product-container">
+                <div class="single-pro-img">
+                  <img src="${product.image}" alt="${product.name}" width="100%" id="Main-img">
+                  <div class="small-img-group">
+                    <div class="small-img-col"><img src="${product.image}" alt="" class="small-img"> </div>
+                    <div class="small-img-col"><img src="abaya2.jpg" alt="" class="small-img"></div>
+                    <div class="small-img-col"><img src="abaya3.jpg" alt="" class="small-img"></div>
+                    <div class="small-img-col"><img src="abaya4.jpeg" alt="" class="small-img"></div>
+        
+                     
+                    <!-- Add dynamic thumbnails in future if needed -->
+                  </div>
+                </div>
+      
+                <div class="single-pro-details">
+                  <h5>${product.category}</h5>
+                  <h4>${product.name}</h4>
+                  <h3>$${product.price.toFixed(2)}</h3>
+                  ${sizeOptions}
+                  ${colorOptions}
+                  <input type="number" value="1" min="1">
+                  <button class="cta" onclick="addToCart()">Add To Cart</button>
+                  <button class="cta" onclick="addToWishlist()">Add To Wishlist</button>
+
+                  <h4>Product Details</h4>
+                  <span>${product.details || "No details available."}</span>
+                </div>
+              </div>
+            </section>
+          `;
+        } else {
+          document.getElementById("product-info").innerHTML = `<p>Product not found.</p>`;
+        }
+      </script>
+      
+    
+      <!-- Script to switch image on click -->
+      <script>
+        document.addEventListener("DOMContentLoaded", () => {
+          setTimeout(() => {
+            const mainImg = document.getElementById("Main-img");
+            const smallImgs = document.querySelectorAll(".small-img");
+    
+            smallImgs.forEach(img => {
+              img.addEventListener("click", () => {
+                mainImg.src = img.src;
+              });
+            });
+          }, 100); // Delay to ensure innerHTML is rendered
+        });
+      </script>
+    <!-- Script to add to cart  -->
+    <script>
+      function addToCart() {
+        const size = document.getElementById("size-select").value;
+        const color = document.getElementById("color-select").value;
+        const quantity = parseInt(document.querySelector("input[type='number']").value);
+    
+        if (size === "Select Size") {
+    alert("Please select a size before adding to cart.");
+    return;
+  }
+
+  if (color === "" || color === "Select Color") {
+    alert("Please select a color before adding to cart.");
+    return;
+  }
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    
+        const productToAdd = {
+          id: product.id,
+          name: product.name,
+          image: product.image,
+          price: product.price,
+          size: size !== "Select Size" ? size : null,
+          color: color || null,
+          quantity: quantity
+        };
+    
+        cart.push(productToAdd);
+        localStorage.setItem("cart", JSON.stringify(cart));
+        alert("Added to cart!");
+        window.location.href = "cart.html";
+      }
+    
+      function addToWishlist() {
+        const wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+    
+        const productToAdd = {
+          id: product.id,
+          name: product.name,
+          image: product.image,
+          price: product.price
+        };
+    
+        // Prevent duplicate wishlist entries
+        const exists = wishlist.some(p => p.id === product.id);
+        if (!exists) {
+          wishlist.push(productToAdd);
+          localStorage.setItem("wishlist", JSON.stringify(wishlist));
+          alert("Added to wishlist!");
+          window.location.href = "wishlist.html";
+        } else {
+          alert("This product is already in your wishlist.");
+          window.location.href = "wishlist.html";
+        }
+      }
+    </script>
+    
+    </body>
+
+
+
+
+
+
+
+    <!-- 
+    <div id="product-info"></div>
+    <script>
+      const urlParams = new URLSearchParams(window.location.search);
+      const productName = urlParams.get('productName');
+    
+      if (productName === 'abaya1') {
+        document.getElementById('product-info').innerHTML = `
+
+    <section id="prodetails" class="section-p1">
+      <div class="product-container">
+        <div class="single-pro-img">
+          <img src="abaya1.jpg" alt="" width="100%" id="Main-img">
+          <div class="small-img-group">
+            <div class="small-img-col">
+              <img src="abaya1.jpg" alt="" width="100%" class="small-img">
+            </div>
+            <div class="small-img-col">
+              <img src="abaya2.jpg" alt="" width="100%" class="small-img">
+            </div>
+            <div class="small-img-col">
+              <img src="abaya3.jpg" alt="" width="100%" class="small-img">
+            </div>
+            <div class="small-img-col">
+              <img src="abaya5.jpg" alt="" width="100%" class="small-img">
+            </div>
+          </div>
+        </div>
+          
+        <section class="single-pro-details">
+          <h5> Abaya</h5>
+          <h4>womens modesty fashion abaya</h4>
+          <h3>$139.00</h3>
+          <select id="size-select">
+            <option>Select Size</option>
+            <option>Small</option>
+            <option>Medium</option>
+            <option>Large</option>
+            <option>XL</option>
+            <option>XLL</option>
+          </select>
+          <select id="color-select">
+            <option value="">Select Color</option>
+            <option value="black">Black</option>
+            <option value="navy">Navy</option>
+            <option value="red">Red</option>
+          </select>
+          <input type="number" value="1">
+          <button class="cta">Add To Cart</button>
+          <button class="cta">Add To Wishlist</button>
+          <h4>Product Details</h4>
+          <span>
+            Elegant 1 Piece Satin Open Abaya, Eid Gift Nikkah Gift Embellished Abaya Wedding Abaya Dubai Abaya Bridesmaid Abaya Islamic Hijab Eid...
+          </span>
+        </div>
+      </div>
+    </section>
+  `;
+  } 
+    
+    else if (productName === 'khimar') {
+    document.getElementById('product-info').innerHTML = `
+      //Product 1 of khimar //
+    <section id="prodetails" class="section-p1">
+      <div class="product-container">
+        <div class="single-pro-img">
+          <img src="khimar.jpeg" alt="" width="100%" id="Main-img">
+          <div class="small-img-group">
+            <div class="small-img-col">
+              <img src="khimar.jpeg" alt="" width="100%" class="small-img">
+            </div>
+            <div class="small-img-col">
+              <img src="khimar1.jpeg" alt="" width="100%" class="small-img">
+            </div>
+            <div class="small-img-col">
+              <img src="khimar2.jpeg" alt="" width="100%" class="small-img">
+            </div>
+            <div class="small-img-col">
+              <img src="khimar3.jpeg" alt="" width="100%" class="small-img">
+            </div>
+          </div>
+        </div>
+          
+        <section class="single-pro-details">
+          <h5> Khimar</h5>
+          <h4>womens modesty fashion khimar</h4>
+          <h3>$139.00</h3>
+          <select id="size-select">
+            <option>Select Size</option>
+            <option>Free size</option>
+            
+          </select>
+          <select id="color-select">
+            <option value="">Select Color</option>
+            <option value="black">Black</option>
+            <option value="navy">Navy</option>
+            <option value="red">Red</option>
+          </select>
+          <input type="number" value="1">
+          <button class="cta">Add To Cart</button>
+          <button class="cta">Add To Wishlist</button>
+          <h4>Product Details</h4>
+          <span>
+         3 Layer Khimar - Chiffon For Her Islamic Gift Eid Hijab Niqab Long Oval - Ultra Soft Breathable Drapey Lightweight </span>
+        </div>
+      </div>
+    </section>
+    `;}
+   
+    document.getElementById('product-info').innerHTML = `
+      
+    else if (productName === 'jilbab1') {
+    document.getElementById('product-info').innerHTML = `
+      // Product 1 of jilbab 
+    <section id="prodetails" class="section-p1">
+      <div class="product-container">
+        <div class="single-pro-img">
+          <img src="jilbab1.jpg" alt="" width="100%" id="Main-img">
+          <div class="small-img-group">
+            <div class="small-img-col">
+              <img src="jilbab2.jpg" alt="" width="100%" class="small-img">
+            </div>
+            <div class="small-img-col">
+              <img src="jilbab3.jpg" alt="" width="100%" class="small-img">
+            </div>
+            <div class="small-img-col">
+              <img src="jilbab1.jpg" alt="" width="100%" class="small-img">
+            </div>
+            <div class="small-img-col">
+              <img src="jilbab2.jpg" alt="" width="100%" class="small-img">
+            </div>
+          </div>
+        </div>
+          
+        <section class="single-pro-details">
+          <h5> Jilbab</h5>
+          <h4>womens modesty fashion khimar</h4>
+          <h3>$139.00</h3>
+          <select id="size-select">
+            <option>Select Size</option>
+            <option>Free Size</option>
+            
+          </select>
+          <select id="color-select">
+            <option value="">Select Color</option>
+            <option value="black">Black</option>
+            <option value="navy">Navy</option>
+            <option value="red">Red</option>
+          </select>
+          <input type="number" value="1">
+          <button class="cta">Add To Cart</button>
+          <button class="cta">Add To Wishlist</button>
+          <h4>Product Details</h4>
+          <span>
+            Elegant 1 Piece Satin Open Abaya, Eid Gift Nikkah Gift Embellished Abaya Wedding Abaya Dubai Abaya Bridesmaid Abaya Islamic Hijab Eid...
+          </span>
+        </div>
+      </div>
+    </section>
+    `;}
+    
+    
+    else if (productName === 'acc1') {
+    document.getElementById('product-info').innerHTML = `
+      // Product 1 of Accesories  
+    <section id="prodetails" class="section-p1">
+      <div class="product-container">
+        <div class="single-pro-img">
+          <img src="acc1.jpeg" alt="" width="100%" id="Main-img">
+          <div class="small-img-group">
+            <div class="small-img-col">
+              <img src="acc2.jpeg" alt="" width="100%" class="small-img">
+            </div>
+            <div class="small-img-col">
+              <img src="acc1.jpeg" alt="" width="100%" class="small-img">
+            </div>
+            <div class="small-img-col">
+              <img src="acc1.jpeg" alt="" width="100%" class="small-img">
+            </div>
+            <div class="small-img-col">
+              <img src="acc1.jpeg" alt="" width="100%" class="small-img">
+            </div>
+          </div>
+        </div>
+          
+        <section class="single-pro-details">
+          <h5> Accesories</h5>
+          <h4>womens modesty fashion khimar</h4>
+          <h3>$139.00</h3>
+          
+          <input type="number" value="1">
+          <button class="cta">Add To Cart</button>
+          <button class="cta">Add To Wishlist</button>
+          <h4>Product Details</h4>
+          <span>
+            Elegant 1 Piece Satin Open Abaya, Eid Gift Nikkah Gift Embellished Abaya Wedding Abaya Dubai Abaya Bridesmaid Abaya Islamic Hijab Eid...
+          </span>
+        </div>
+      </div>
+    </section>
+    `;}
+   
+    document.getElementById('product-info').innerHTML = `
+      // Product 2 of Accesories  
+    <section id="prodetails" class="section-p1">
+      <div class="product-container">
+        <div class="single-pro-img">
+          <img src="ext5.jpeg" alt="" width="100%" id="Main-img">
+
+          <div class="small-img-group">
+            <div class="small-img-col">
+              <img src="ext4.jpeg" alt="" width="100%" class="small-img">
+            </div>
+            <div class="small-img-col">
+              <img src="ext5.jpeg" alt="" width="100%" class="small-img">
+            </div>
+           
+          </div>
+        </div>
+          
+        <section class="single-pro-details">
+          <h5> Extensions </h5>
+          <h4>womens modesty fashion khimar</h4>
+          <h3>$10.00</h3>
+         
+          <select id="color-select">
+            <option value="">Select Color</option>
+            <option value="black">Black</option>
+            <option value="Lavender">Navy</option>
+            <option value="red">Red</option>
+             <option value="pastel pink">Black</option>
+            <option value="Cream white">Navy</option>
+            <option value="white">Red</option>
+          </select>
+          <input type="number" value="1">
+          <button class="cta">Add To Cart</button>
+          <button class="cta">Add To Wishlist</button>
+          <h4>Product Details</h4>
+          <span>
+            Elegant 1 Pair of strechable sleeves extensions
+          </span>
+        </div>
+      </div>
+    </section>
+    `;}
+  
+    else if (productName === 'Hijab1') {
+    document.getElementById('product-info').innerHTML = `
+      //Product 1 
+    <section id="prodetails" class="section-p1">
+      <div class="product-container">
+        <div class="single-pro-img">
+          <img src="hijab1.jpg" alt="" width="100%" id="Main-img">
+
+          <div class="small-img-group">
+            <div class="small-img-col">
+              <img src="hijab1.jpg" alt="" width="100%" class="small-img">
+            </div>
+            <div class="small-img-col">
+              <img src="hijab2.jpg" alt="" width="100%" class="small-img">
+            </div>
+            <div class="small-img-col">
+              <img src="hijab3.jpg" alt="" width="100%" class="small-img">
+            </div>
+            
+          </div>
+        </div>
+          
+        <section class="single-pro-details">
+          <h5>Hijabs</h5>
+          <h4>womens modesty fashion abaya</h4>
+          <h3>$139.00</h3>
+          
+          <select id="color-select">
+            <option value="">Select Color</option>
+            <option value="black">Black</option>
+            <option value="navy">Navy</option>
+            <option value="red">Red</option>
+          </select>
+          <input type="number" value="1">
+          <button class="cta">Add To Cart</button>
+          <button class="cta">Add To Wishlist</button>
+          <h4>Product Details</h4>
+          <span>
+            Elegant 1 Piece Satin Open Abaya, Eid Gift Nikkah Gift Embellished Abaya Wedding Abaya Dubai Abaya Bridesmaid Abaya Islamic Hijab Eid...
+          </span>
+        </div>
+      </div>
+    </section>
+    `;}
+    
+    else if (productName === 'cap1') {
+    document.getElementById('product-info').innerHTML = `
+     //  Product 1 //
+    <section id="prodetails" class="section-p1">
+      <div class="product-container">
+        <div class="single-pro-img">
+          <img src="cap1.jpeg" alt="" width="100%" id="Main-img">
+
+          <div class="small-img-group">
+            <div class="small-img-col">
+              <img src="cap1.jpeg" alt="" width="100%" class="small-img">
+            </div>
+            <div class="small-img-col">
+              <img src="cap2.jpeg" alt="" width="100%" class="small-img">
+            </div>
+            <div class="small-img-col">
+              <img src="cap3.jpeg" alt="" width="100%" class="small-img">
+            </div>
+            
+          </div>
+        </div>
+          
+        <section class="single-pro-details">
+          <h5>Hijab Caps</h5>
+          <h4>womens modesty fashion abaya</h4>
+          <h3>$139.00</h3>
+          
+          <select id="color-select">
+            <option value="">Select Color</option>
+            <option value="black">Black</option>
+            <option value="navy">Navy</option>
+            <option value="red">Red</option>
+          </select>
+          <input type="number" value="1">
+          <button class="cta">Add To Cart</button>
+          <button class="cta">Add To Wishlist</button>
+          <h4>Product Details</h4>
+          <span>
+            Elegant 1 Piece Satin Open Abaya, Eid Gift Nikkah Gift Embellished Abaya Wedding Abaya Dubai Abaya Bridesmaid Abaya Islamic Hijab Eid...
+          </span>
+        </div>
+      </div>
+    </section>
+    `;}
+    
+    else if (productName === 'cord1') {
+    document.getElementById('product-info').innerHTML = `
+    //-- Product 2 --//
+    <section id="prodetails" class="section-p1">
+      <div class="product-container">
+        <div class="single-pro-img">
+          <img src="cord1.jpeg" alt="" width="100%" id="Main-img">
+
+          <div class="small-img-group">
+            <div class="small-img-col">
+              <img src="cord1.jpeg" alt="" width="100%" class="small-img">
+            </div>
+            <div class="small-img-col">
+              <img src="cord2.jpeg" alt="" width="100%" class="small-img">
+            </div>
+            <div class="small-img-col">
+              <img src="cord1.jpeg" alt="" width="100%" class="small-img">
+            </div>
+           
+          </div>
+        </div>
+          
+        <section class="single-pro-details">
+          <h5>Cord-Sets</h5>
+          <h4>womens modesty fashion cord-sets</h4>
+          <h3>$139.00</h3>
+          <select id="size-select">
+            <option>Select Size</option>
+            <option>Small</option>
+            <option>Medium</option>
+            <option>Large</option>
+            <option>XL</option>
+            <option>XLL</option>
+          </select>
+          <select id="color-select">
+            <option value="">Select Color</option>
+            <option value="black">Black</option>
+            <option value="navy">Navy</option>
+            <option value="red">Red</option>
+          </select>
+          <input type="number" value="1">
+          <button class="cta">Add To Cart</button>
+          <button class="cta">Add To Wishlist</button>
+          <h4>Product Details</h4>
+          <span>
+            Elegant 1 Piece cord-set for women..
+          </span>
+        </div>
+      </div>
+    </section>
+    `;
+  }
+  
+  
+  else {
+  // Default code or error handling
+}
+
+
+ // Get all product containers
+var productContainers = document.querySelectorAll(".product-container");
+
+// Loop through each product container
+productContainers.forEach(function(productContainer) {
+  // Get the main image and small images for this product
+  var MainImg = productContainer.querySelector("#Main-img");
+  var smallImgs = productContainer.querySelectorAll(".small-img");
+
+  // Loop through the small images and add an event listener to each one
+  smallImgs.forEach(function(smallImg) {
+    smallImg.addEventListener("click", function() {
+      MainImg.src = this.src;
+    });
+  });
+});
+
+</script>
+-->
+
+
+
+<style> 
+/* Global Styles */
+
+ header {
+  background-color: #be9c9c; /* dark gray background */
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.brand {
+  font-size: 25px;
+  font-weight: bold;
+  color: #fff;
+  margin-left:40px;
+ 
+}
+
+nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+nav li {
+  margin-right: 20px;
+}
+
+nav a {
+  color: #fff;
+  text-decoration: none;
+}
+
+nav a.active {
+  color: #ccc; /* light gray text for active link */
+}
+
+nav a:hover {
+  color: #010101; /* dark gray text on hover */
+}
+#prodetails .product-container {
+  display: flex;
+  margin-top: 10px;
+}
+.single-pro-img img{
+  height: 100%;
+  object-fit: cover;
+  transform: scale(0.7);
+}
+#prodetails .single-pro-img {
+  width: 40%;
+  margin-right: 50px;
+  transform: scale(0.7);
+  position: relative;
+  margin-top: -13%;
+
+}
+
+.small-img-group {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  transform: scale(0.8);
+  margin-top: -20%;
+}
+
+.small-img-col {
+  flex-basis: 24%;
+  cursor: pointer;
+}
+
+#prodetails .single-pro-details {
+  width: 50%;
+  padding-top: 30px;
+}
+
+#prodetails .single-pro-details h4 {
+  padding-top: 40px 0 20px 0;
+}
+
+#prodetails .single-pro-details h2 {
+  font-size: 26px;
+}
+
+#prodetails .single-pro-details select {
+  display: block;
+  padding: 5px 10px;
+  margin-bottom: 10px;
+}
+#prodetails .single-pro-details input{
+  width: 50px;
+  height: 47px;
+  padding-left: 10px;
+  font-size: 16px;
+  margin-right: 10px;
+}
+#prodetails .single-pro-details input:focus{
+  outline: none;
+}
+#prodetails .single-pro-details span{
+  line-height: 25px;
+}
+.cta {
+    background-color: #4CAF50;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+ 
+}
+
+.cta:hover {
+    background-color: #3e8e41;
+}
+
+ .single-pro-details button {
+      background-color: #333;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+</style>

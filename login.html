@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login - Safaa</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body, html {
+      height: 100%;
+      overflow: hidden;
+    }
+
+    .bg-video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      min-width: 100%;
+      min-height: 100%;
+      object-fit: cover;
+      z-index: -1;
+    }
+
+    .login-form {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      backdrop-filter: blur(14px);
+      background-color: rgba(231, 205, 117, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 20px;
+      padding: 40px;
+      width: 90%;
+      max-width: 360px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      animation: slideIn 1.2s ease forwards;
+      opacity: 0;
+    }
+
+    @keyframes slideIn {
+      from {
+        transform: translate(-50%, -60%);
+        opacity: 0;
+      }
+      to {
+        transform: translate(-50%, -50%);
+        opacity: 1;
+      }
+    }
+
+    .login-form h2 {
+      text-align: center;
+      margin-bottom: 25px;
+      color: #000000;
+    }
+
+    .login-form label {
+      color: #121111;
+      font-size: 14px;
+    }
+
+    .login-form input {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 8px;
+      outline: none;
+      background-color: rgba(255, 255, 255, 0.85);
+    }
+
+    .password-wrap {
+      position: relative;
+    }
+
+    .toggle-password {
+      position: absolute;
+      top: 30%;
+      right: 12px;
+      cursor: pointer;
+      font-size: 16px;
+      color: #333;
+    }
+
+    .login-form input[type="submit"] {
+      background-color: #ffffff;
+      color: #444;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      margin-top: 15px;
+    }
+
+    .login-form input[type="submit"]:hover {
+      background-color: #f8d57e;
+    }
+
+    #forgot-password {
+      font-size: 13px;
+      color: #000000;
+      text-decoration: underline;
+      display: block;
+      margin-top: 10px;
+      margin-bottom: 10px;
+      text-align: right;
+      cursor: pointer;
+    }
+
+    #forgot-password:hover {
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 🎥 Hero Background Video -->
+  <video autoplay muted loop class="bg-video">
+    <source src="hero-vedio.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+
+  <!-- ✨ Login Form -->
+  <section class="login-form">
+    <h2>Welcome Back 👋</h2>
+    <form>
+      <label for="username">Username:</label>
+      <input type="text" id="username" placeholder="Enter your username" />
+
+      <label for="password">Password:</label>
+      <div class="password-wrap">
+        <input type="password" id="password" placeholder="Enter your password" />
+        <span class="toggle-password" onclick="togglePassword()">👁️</span>
+      </div>
+
+      <a id="forgot-password">Forgot Password?</a>
+      <input type="submit" value="Login" />
+    </form>
+  </section>
+
+  <audio id="loginSound" src="https://assets.mixkit.co/sfx/download/mixkit-positive-interface-beep-221.mp3" preload="auto"></audio>
+
+  <script>
+    function togglePassword() {
+      const passwordField = document.getElementById("password");
+      const icon = document.querySelector(".toggle-password");
+      if (passwordField.type === "password") {
+        passwordField.type = "text";
+        icon.textContent = "🙈";
+      } else {
+        passwordField.type = "password";
+        icon.textContent = "👁️";
+      }
+    }
+
+    document.getElementById('forgot-password').addEventListener('click', () => {
+      alert("Password reset feature is under construction.");
+    });
+
+    document.querySelector('.login-form form').addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value.trim();
+      const sound = document.getElementById('loginSound');
+
+      if (!username || !password) {
+        alert("Please fill in both username and password.");
+        return;
+      }
+
+      const storedUser = JSON.parse(localStorage.getItem("user"));
+      if (!storedUser) {
+        alert("No user found. Please register first.");
+        window.location.href = "register.html";
+        return;
+      }
+
+      if (username === storedUser.username && password === storedUser.password) {
+        alert("Login successful!");
+        sound.play().then(() => {
+          window.location.href = "index.html";
+        }).catch((err) => {
+          console.error("Audio play error:", err);
+          window.location.href = "index.html";
+        });
+      } else {
+        alert("Invalid username or password.");
+      }
+    });
+  </script>
+</body>
+</html>

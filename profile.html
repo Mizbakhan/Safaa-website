@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moonlit Profile</title>
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body with Colorful Gradient Background */
+        body {
+            font-family: 'Poppins', sans-serif;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden; /* Prevent scrolling */
+            background: linear-gradient(45deg, #2e2b47, #6a1f6d, #ff69b4, #ff8c00, #4b0082);
+            background-size: 400% 400%;
+            animation: gradient-animation 15s ease infinite;
+            position: relative;
+        }
+
+        /* Animated Gradient Background */
+        @keyframes gradient-animation {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        /* Profile Container with Transparent Background and Blur */
+        .profile-container {
+            background: rgba(0, 0, 0, 0.7); /* Dark with transparency */
+            color: #fff;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            padding: 40px;
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            box-sizing: border-box;
+            backdrop-filter: blur(15px); /* Smooth blur effect */
+            -webkit-backdrop-filter: blur(15px); /* Safari Fix */
+            border: 1px solid rgba(255, 255, 255, 0.2); /* Light border for extra softness */
+        }
+
+        /* Heading Style */
+        .profile-container h2 {
+            font-size: 26px;
+            margin-bottom: 20px;
+            font-weight: bold;
+            font-family: 'Poppins', sans-serif;
+            color: #f1c40f; /* Moonlit Gold */
+        }
+
+        /* Form Text */
+        .profile-container p {
+            color: #bbb;
+            font-size: 18px;
+            margin: 15px 0;
+            line-height: 1.6;
+        }
+
+        /* Strong Text (labels) */
+        .profile-container strong {
+            color: #fff;
+            font-weight: 600;
+        }
+
+        /* Profile Info Text */
+        #profile-username, #profile-email {
+            color: #f1c40f;
+            font-weight: 500;
+            font-size: 18px;
+            margin-top: 5px;
+        }
+
+        /* Button Style */
+        .profile-container button {
+            width: 100%;
+            padding: 14px;
+            background-color: #f39c12; /* Golden Yellow */
+            color: white;
+            font-size: 18px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .profile-container button:hover {
+            background-color: #e67e22; /* Lighter Gold */
+            transform: translateY(-3px); /* Subtle hover effect */
+        }
+
+        /* Moon Animation */
+        .moon {
+            position: absolute;
+            top: 10%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0.3) 60%, rgba(0, 0, 0, 0.5) 100%);
+            box-shadow: 0 0 25px rgba(255, 255, 255, 0.5);
+            animation: moon-animation 10s ease-in-out infinite;
+        }
+
+        /* Floating Moon Animation */
+        @keyframes moon-animation {
+            0% {
+                transform: translateX(-50%) translateY(0);
+            }
+            50% {
+                transform: translateX(-50%) translateY(20px);
+            }
+            100% {
+                transform: translateX(-50%) translateY(0);
+            }
+        }
+
+        /* Floating Particle Effect */
+        .background-animation {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(135deg, #0a0a0a, #333333, #1c1c1c);
+            background-size: 300% 300%;
+            opacity: 0.1;
+            animation: gradient-animation 15s linear infinite;
+        }
+
+        /* Adjust text links for aesthetic consistency */
+        a {
+            text-decoration: none;
+            color: #f1c40f;
+            font-weight: 600;
+        }
+
+        a:hover {
+            color: #f39c12;
+        }
+    </style>
+</head>
+<body>
+    <!-- Moon Animation -->
+    <div class="moon"></div>
+    <div class="background-animation"></div>
+    
+    <div class="profile-container">
+        <h2>User Profile</h2>
+        <p><strong>Username:</strong> <span id="profile-username"></span></p>
+        <p><strong>Email:</strong> <span id="profile-email"></span></p>
+        <button onclick="logout()">Logout</button>
+    </div>
+
+    <script>
+        // Fetch user from localStorage
+        const user = JSON.parse(localStorage.getItem("user"));
+
+        if (!user) {
+            alert("You are not logged in. Redirecting to login page.");
+            window.location.href = "login.html";
+        } else {
+            document.getElementById("profile-username").textContent = user.username;
+            document.getElementById("profile-email").textContent = user.email;
+        }
+
+        function logout() {
+            // Clear localStorage (optional: just remove user)
+            localStorage.removeItem("user");
+            alert("Logged out successfully!");
+            window.location.href = "login.html";
+        }
+    </script>
+</body>
+</html>
