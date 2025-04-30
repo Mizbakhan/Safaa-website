@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <title>Safa - Where Modesty Meets Modernity</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<header>
+    <div class="logo">
+      <img src="safa_logo.png" alt="Safaa Logo" id="logoImg">
+    </div>
+  
+  <!-- Popup Overlay -->
+  <div class="popup-overlay" id="popupOverlay">
+    <div class="popup-content">
+      <img src="safa_logo.png" alt="Safaa Full Logo">
+    </div>
+  </div>
+
+  <script>
+    const logo = document.getElementById('logoImg');
+    const popup = document.getElementById('popupOverlay');
+  
+    logo.addEventListener('click', () => {
+      popup.style.display = 'flex';
+    });
+  
+    popup.addEventListener('click', () => {
+      popup.style.display = 'none';
+    });
+  </script>
+  
+
+    <nav id="nav">
+             <li><a class="active" href="#hero">Home</a></li>
+             <li> <a href="#categories">Categories</a>
+                
+            </li>
+            <li><a href="#about_us">About Us</a></li>
+            
+            <li><a href="#faq">FAQ</a></li>
+            <li><a href="#contact_us">Contact Us</a></li>
+            
+            <!-- Add more links here -->
+            <li>
+              <div class="search-bar">
+                <input type="search" placeholder="Search...">
+                <button><i class="fas fa-search"></i></button>
+            </div>
+            
+            
+            
+            </li>
+            <li>
+              <a href="wishlist.html" class="wishlist" onclick="openWishlist()">
+                <i class="fa-solid fa-heart"></i>
+                <span id="wishlist-count" class="count-badge">0</span>
+              </a>
+            </li>
+            <li>
+              <a href="cart.html" class="cart" onclick="openCart()">
+                <i class="fa-solid fa-cart-shopping"></i>
+                <span id="cart-count" class="count-badge">0</span>
+              </a>
+            </li>
+            
+<style>
+.count-badge {
+              background-color: crimson;
+              color: white;
+              font-size: 12px;
+              padding: 2px 6px;
+              border-radius: 50%;
+              position: absolute;
+              top: -6px;
+              right: -8px;
+            }
+            .wishlist, .cart {
+              position: relative;
+            }
+</style>
+            
+            
+            <li>
+                <a href="profile.html" class="profile" onclick="openProfile()">
+                    <div class="profile"><i class="fa-solid fa-user"></i>
+                    </div>
+                </a>
+            </li>
+         <li>
+          <div class="login-register">
+      
+            <a href="login.html" class="login" onclick="openLogin()">Login</a>
+            
+            <a href="register.html" class="register" onclick="openRegister()">Register</a>
+        </div>
+         </li>
+         <a href="#" id="close"><i class="far fa-times"></i></a>
+    
+        </nav>
+<div class="mobile">
+  
+  <a href="cart.html"> <i class="fa-solid fa-cart-shopping"></i></a>
+
+  <i id="bar" class="fas fa-outdent"></i>
+</div>
+
+</header>
+
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero">
+        <div class="hero-image">
+            <img src="hero-img.jpg" alt="Hero Image">
+        </div>
+        <div class="hero-content">
+            <h1>𝓦𝓮𝓵𝓬𝓸𝓶𝓮 𝓽𝓸 𝓢𝓪𝓯𝓪𝓪</h1>
+            <p>Where Modesty Meets Modernity</p>
+            <a href="#categories"><button class="cta">Shop Now</button></a>
+        </div>
+    </section>
+
+    <div class="line">
+    <style>
+      .line {
+        height: 20px;
+        background-image: linear-gradient(to right, #64374e, #b04c7e,  transparent);
+        background-size: 100% 100%;
+        mask-image: linear-gradient(to right, black, black, transparent);
+        mask-size: 100% 100%;
+        mask-position: 0 0;
+        position: relative;
+        top: 40px;
+      }
+    </style>
+</div>
+
+
+    <!-- Introduction Section -->
+<section class="intro">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4">
+          <img src="hijab.giphy.gif" alt="Safaa Introduction Image" class="img-fluid">
+        </div>
+        <div class="col-md-8">
+          <h2>Welcome to Safaa</h2>
+          <p>Where fashion meets faith. We believe that modesty and modernity can coexist in perfect harmony. At Safaa, we're dedicated to creating clothing that not only makes you look and feel great, but also resonates with your values and beliefs.</p>
+            <p >Our mission is to empower women to express themselves confidently and authentically, without having to choose between their faith and their personal style.</p>
+          <p>Our Aim is to provide stylish, high-quality clothing that empowers women to express their individuality while staying true to their values.</p><p>
+
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <div class="line1">
+    <style>
+      .line1 {
+        height: 20px;
+        background-image: linear-gradient(to right, transparent, #9a845d,#bd7e476d);
+        background-size: 100% 100%;
+        mask-image: linear-gradient(to right, transparent, black, black);
+        mask-size: 100% 100%;
+        mask-position: 0 0;
+      }
+    </style>
+  </div>
+    <!-- Featured Categories Section -->
+    <div id="categories" class="categories">
+        <h1>Explore Our Collections</h1>
+    <section class="featured-categories">
+        
+        <div class="categories-grid">
+            <div class="category">
+                <img src="abaya-img.jpg" alt="Category Image 1">
+                <h3>Abayas</h3>
+                <p>Explore our collection of stylish abayas</p>
+                 <a href="abayas.html" onclick="openAbaya()"> <button class="cta">Shop Now</button></a>
+            </div>
+            <div class="category">
+                <img src="hijab.jpg" alt="Category Image 2">
+                <h3>Hijabs</h3>
+                <p>Discover our range of beautiful hijabs</p>
+                <a href="Hijabs.html" onclick="openHijab()"><button class="cta">Shop Now</button></a>
+            </div>
+            <div class="category">
+                <img src="cord-set.jpeg" alt="Category Image 3">
+                <h3>cord-sets</h3>
+                <p>Browse our collection of modest dresses</p>
+                <a href="#cord-set.html" onclick="openCordSet()"><button class="cta">Shop Now</button></a>
+            </div>
+            <div class="category">
+                <img src="hijab-caps.jpeg" alt="Category Image 3">
+                <h3>Hijab Caps</h3>
+                <p>Browse our collection of modest dresses</p>
+                <a href="#caps.html" onclick="openCaps()"><button class="cta">Shop Now</button></a>
+            </div>
+            <div class="category">
+                <img src="sleeve-extensions.jpeg" alt="Category Image 3">
+                <h3>Sleeves Extension</h3>
+                <p>Browse our collection of modest dresses</p>
+                <a href="#extensions.html" onclick="openExtensions()"><button class="cta">Shop Now</button></a>
+            </div>
+            <div class="category">
+                <img src="Jilbab.jpg" alt="Category Image 3">
+                <h3>Jilbaabs</h3>
+                <p>Browse our collection of modest dresses</p>
+                <a href="#jilbab.html" onclick="openJilbab()"><button class="cta">Shop Now</button></a>
+            </div>
+            <div class="category">
+                <img src="khimar.jpeg" alt="Category Image 3">
+                <h3>Khimars</h3>
+                <p>Browse our collection of modest dresses</p>
+                <a href="#khimar.html" onclick="openKhimar()"><button class="cta">Shop Now</button></a>
+            </div>
+            <div class="category">
+                <img src="hijab accesories.jpeg" alt="Category Image 3">
+                <h3>Hijab Accesories</h3>
+                <p>Browse our collection of modest dresses</p>
+                <a href="#accessories.html" onclick="openAccessories()"><button class="cta">Shop Now</button></a>
+            </div>
+
+        </div>
+    
+    </section>
+</div>
+   
+
+<div class="line">
+  <style>
+    .line {
+      height: 20px;
+      background-image: linear-gradient(to right, #bd7e476d, #9a845d,  transparent);
+      background-size: 100% 100%;
+      mask-image: linear-gradient(to right, black, black, transparent);
+      mask-size: 100% 100%;
+      mask-position: 0 0;
+    }
+  </style>
+</div>
+
+    <div id="about_us" class="about-us-container">
+    <h1>About Us</h1>
+      <div id="about_us" class="about-us">
+        
+        <section class="our-story">
+          <h2>Our Story</h2>
+          <p>"Safaa was founded on the principle that modesty and modernity are not mutually exclusive. Our journey began with a passion to create clothing that not only adheres to Islamic values but also celebrates the beauty of modern fashion. We believe that every woman deserves to feel confident, stylish, and true to herself."</p>
+          <img src="Designer (4).jpeg" alt="Safaa's story">
+        </section>
+      
+        <section class="our-mission">
+          <h2>Our Mission</h2>
+          <p>"At Safaa, we're dedicated to providing high-quality, modest clothing that empowers Muslim women to express their individuality and confidence. We strive to create a community that celebrates the intersection of faith and fashion, and inspires women to be their best selves."</p>
+        </section>
+      
+        <section class="our-values">
+          <h2>Our Values</h2>
+          <p>"We value modesty, quality, and individuality. We believe in the importance of dressing with intention and purpose, and in creating clothing that not only looks beautiful but also makes you feel confident and empowered."</p>
+        </section>
+      
+        <section class="meet-the-team">
+          <h2>Meet the Team</h2>
+          <div class="team-member">
+            <img src="Designer (3).jpeg" alt="Founder's photo">
+            <h3>Founder, Safaa</h3>
+            <p>Passionate about creating clothing that empowers Muslim women, Safaa's founder has a vision to bridge the gap between modesty and modernity.</p>
+          </div>
+          <div class="team-member">
+            <img src="Designer (2).jpeg" alt="Designer's photo">
+            <h3>Designer, Amira</h3>
+            <p>With a background in fashion design, Amira brings her expertise to create clothing that is both stylish and modest.</p>
+          </div>
+          <div class="team-member">
+            <img src="Designer (1).jpeg" alt="Customer Service's photo">
+            <h3>Customer Service, Fatima</h3>
+            <p>Fatima is dedicated to providing exceptional customer service, ensuring that every customer feels valued and supported.</p>
+          </div>
+        </section>
+      
+        <section class="testimonials">
+          <h2>What Our Customers Say</h2>
+          <blockquote>
+            <p>"Safaa's clothing has given me the confidence to express my individuality while staying true to my faith. I feel empowered and beautiful!"</p>
+            <cite>- Aisha, happy customer</cite>
+          </blockquote>
+          <blockquote>
+            <p>"I was blown away by the quality and style of Safaa's clothing. It's finally possible to be modest and fashionable!"</p>
+            <cite>- Fatima, satisfied customer</cite>
+          </blockquote>
+        </section>
+      </div>
+    </div>
+      
+
+    <!-- FAQ Section -->
+<section id="faq">
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-categories">
+      <h3>Product Information</h3>
+      <ul>
+        <li>
+          <h4>What is the material used in your clothing?</h4>
+          <p>Our clothing is made from high-quality, breathable fabrics that are comfortable and durable.</p>
+        </li>
+        <li>
+          <h4>How do I care for my Safaa garments?</h4>
+          <p>Please refer to our care instructions page for specific guidance on washing and drying your Safaa clothing.</p>
+        </li>
+      </ul>
+    </div>
+  
+    <div class="faq-categories">
+      <h3>Ordering and Payment</h3>
+      <ul>
+        <li>
+          <h4>How do I place an order?</h4>
+          <p>Simply browse our collection, add items to your cart, and follow the checkout process.</p>
+        </li>
+        <li>
+          <h4>What payment methods do you accept?</h4>
+          <p>We accept Visa, Mastercard, American Express, and PayPal.</p>
+        </li>
+      </ul>
+    </div>
+  
+    <!-- Add more categories and questions as needed -->
+  
+  </section>
+
+
+    <section class="video-section">
+        <video autoplay loop muted>
+          <source src="hero-vedio.mp4" type="video/mp4">
+        </video>
+        <div class="overlay">
+          <h2>Thank you for visiting our website!</h2><br>
+          <p>We appreciate your time and hope you had a great shopping experience.</p>
+          <p>Stay tuned for more updates and promotions!</p>
+        </div>
+      </section>
+
+    <!-- Footer Section -->
+    <footer>
+        <div id="contact_us" class="social-media">
+          <a href="mailto:mizbakhan165@gmail.com" class="fa-solid fa-envelope"></a>
+            <a href="#" class="fab fa-facebook-f"></a>
+            <a href="#" class="fab fa-instagram"></a>
+            <a href="#" class="fab fa-twitter"></a>
+            <a href="#" class="fab fa-pinterest-p"></a>
+        </div>
+        <div class="contact-info">
+            <p>Address: 123 Main St, Anytown, USA</p>
+            <p>Phone: 555-555-5555</p>
+            <p>Email: [info@safa.com](mailto:info@safa.com)</p>
+        </div>
+        <div class="newsletter">
+            <input type="email" placeholder="Enter your email address">
+            <button>Subscribe</button>
+        </div>
+        <p class="copyright">&copy 2025 Safaa. All rights reserved.  Developed by Mizba Khan <i class="fa-regular fa-heart"></i> </p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
