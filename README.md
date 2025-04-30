@@ -28,8 +28,8 @@ Hosted on **Netlify**, Safaa is fully responsive, dynamic, and easy to scale and
 
 ## 🚀 Live Site
 
-👉 [Visit Safaa on Netlify](https://your-netlify-site.netlify.app)  
-*(Replace with your actual Netlify link)*
+👉 [Visit Safaa on Netlify](https://jolly-seahorse-0636ae.netlify.app/)  
+
 
 ---
 
