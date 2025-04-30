@@ -116,7 +116,12 @@ document.querySelector('.search-bar button').addEventListener('click', (e) => {
       "Modest Maxi Dress",
       "Flared Abaya",
       "Embroidered Abaya",
-      "Casual Abaya"
+      "Casual Abaya",
+       "Hijab",
+        "Khimar",
+        "jilbab",
+        "Accessories",
+        "Cap"
   ];
 
   if (!input) {
